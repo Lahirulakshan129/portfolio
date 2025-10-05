@@ -1,0 +1,137 @@
+/* HomePage.css - Styles to match the dark purple/blue theme */
+
+.home-page {
+    background-color: #0a0a0a;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #1a0d2e;
+    border-bottom: 1px solid #4a0e8b;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9370db;
+  }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links li a {
+    color: #9370db;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .nav-links li a:hover {
+    color: #ba55d3;
+  }
+  
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0d2e 50%, #4a0e8b 100%);
+  }
+  
+  .hero-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    max-width: 1200px;
+    width: 100%;
+  }
+  
+  .hero-text {
+    flex: 1;
+  }
+  
+  .greeting {
+    color: #a0a0a0;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .name {
+    font-size: 4rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #ff00ff, #9370db);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    color: #a0a0a0;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .resume-button {
+    background: none;
+    border: 2px solid #9370db;
+    color: #9370db;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .resume-button:hover {
+    background-color: #9370db;
+    color: #ffffff;
+    transform: translateY(-2px);
+  }
+  
+  .hero-illustration {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    opacity: 0.8;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      gap: 1rem;
+    }
+  
+    .nav-links {
+      gap: 1rem;
+    }
+  
+    .hero-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 2rem;
+    }
+  
+    .name {
+      font-size: 2.5rem;
+    }
+  }
