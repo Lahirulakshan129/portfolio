@@ -1,4 +1,4 @@
-"use client"; // Add this at the very top
+"use client"; 
 import React from "react";
 import { ReactTyped } from "react-typed";
 import "./CustomCss/Homepage/Homepage.css";
@@ -48,7 +48,7 @@ const HomePage: React.FC = () => {
                 startDelay={1500}
               />
             </p>
-            <button className="resume-button">Resume ⬇</button>
+            <button className="resume-button">Resume </button>
           </div>
           <div className="hero-illustration">
             <BlobPhoto imageSrc="/images/2.png" />
