@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #00ffaa;
+  --dark-bg: #0f0f1e;
+  --dark-text: #e0e0e0;
+  --light-bg: #f8f9fa;
+  --light-text: #1a1a1a;
 }
 
 @theme inline {
@@ -23,4 +26,78 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+/* styles/globals.css */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out 2s forwards;
+}
+
+/* Typing cursor effect */
+.typing::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+/* app/globals.css */
+@layer components {
+  .animate-blink {
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+/* Add to your globals.css */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#particles-container {
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(120, 219, 226, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(120, 219, 226, 0.3) 1px, transparent 1px),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 226, 0.2) 1px, transparent 1px),
+    radial-gradient(circle at 60% 60%, rgba(120, 219, 226, 0.2) 1px, transparent 1px);
+  background-size: 50px 50px, 70px 70px, 90px 90px, 110px 110px;
+  background-position: 0 0, 25px 25px, 35px 35px, 45px 45px;
+  animation: float 25s infinite linear;
+  pointer-events: none;
+}
+
+@keyframes float {
+  from {
+    background-position: 0 0, 25px 25px, 35px 35px, 45px 45px;
+  }
+  to {
+    background-position: 100px 100px, 125px 125px, 135px 135px, 145px 145px;
+  }
 }
