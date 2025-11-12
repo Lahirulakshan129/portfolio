@@ -417,7 +417,7 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
               darkMode ? 'text-gray-400' : 'text-gray-600'
             }`}
           >
-            Ready to bring your ideas to life? Let's discuss your project.
+            Ready to bring your ideas to life? Let&apos;s discuss your project.
           </p>
         </div>
 
@@ -577,12 +577,12 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
               <h3 className={`text-sm font-bold mb-2 ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}>
-                Let's Connect
+                Let&apos;s Connect
               </h3>
               <p className={`mb-3 text-xs leading-relaxed ${
                 darkMode ? 'text-gray-400' : 'text-gray-600'
               }`}>
-                Interested in working together? Reach out and let's create something amazing.
+                Interested in working together? Reach out and let&apos;s create something amazing.
               </p>
               
               <div className="space-y-2">

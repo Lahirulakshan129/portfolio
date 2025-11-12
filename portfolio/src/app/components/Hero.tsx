@@ -10,6 +10,8 @@ interface HeroProps {
   darkMode: boolean;
 }
 
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+gsap.registerPlugin(ScrollToPlugin);
 const handleDownloadCV = () => {
   const link = document.createElement("a");
   link.href = "/path-to-your-cv.pdf";
@@ -309,7 +311,7 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
           <span
             className={`block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 md:mb-4 transition-colors duration-500 ${getTextColor()}`}
           >
-            Hi, I'm
+            Hi, I&apos;m
           </span>
           <span className="typing text-5xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent inline-block">
             {/* Name will be typed by GSAP */}

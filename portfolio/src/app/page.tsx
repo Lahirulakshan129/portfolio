@@ -10,23 +10,25 @@ import  Contact  from "@/components/Contact/Contact";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/layout/Section";
 import { useGSAP } from "@/lib/gsap";
-import dynamic from "next/dynamic";
+
+export type SectionId = "home" | "about" | "projects" | "skills" | "contact";
 
 export default function Home() {
   const [dark, setDark] = useState(true);
-  const [active, setActive] = useState("home");
+  const [active, setActive] = useState<SectionId>("home");
   const containerRef = useRef<HTMLDivElement>(null);
 
   const scrollTo = (id: string) => {
+    const sectionId = id as SectionId;
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setActive(id);
+    setActive(sectionId);
   };
 
   useGSAP(
     () => {
-      if (typeof window !== "undefined" && (window as any).gsap) {
-        const gsap = (window as any).gsap;
-        const ScrollTrigger = (window as any).ScrollTrigger;
+      if (typeof window !== "undefined" && window.gsap) {
+        const { gsap } = window;
+        const { ScrollTrigger } = window;
 
         gsap.to(".navbar", {
           scrollTrigger: {
@@ -42,10 +44,11 @@ export default function Home() {
           boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
         });
 
-        gsap.utils.toArray(".section").forEach((el: any) => {
-          gsap.from(el, {
+        gsap.utils.toArray(".section").forEach((el: unknown) => {
+          const element = el as HTMLElement;
+          gsap.from(element, {
             scrollTrigger: {
-              trigger: el,
+              trigger: element,
               start: "top 80%",
               toggleActions: "play none none reverse",
             },
@@ -56,10 +59,11 @@ export default function Home() {
           });
         });
 
-        gsap.utils.toArray(".skill-bar-fill").forEach((bar: any) => {
-          gsap.from(bar, {
+        gsap.utils.toArray(".skill-bar-fill").forEach((bar: unknown) => {
+          const barElement = bar as HTMLElement;
+          gsap.from(barElement, {
             scrollTrigger: {
-              trigger: bar,
+              trigger: barElement,
               start: "top 90%",
               toggleActions: "play none none reverse",
             },
@@ -75,7 +79,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ["home", "about", "projects", "skills", "contact"];
+      const sections: SectionId[] = ["home", "about", "projects", "skills", "contact"];
       const scrollY = window.scrollY + 100;
       for (const section of sections) {
         const element = document.getElementById(section);
@@ -94,7 +98,7 @@ export default function Home() {
 
   const getBackgroundGradient = () =>
     dark
-      ? "bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#1e293b]" // deep blue-black gradient
+      ? "bg-gradient-to-br from-[#020617] via-[#0f172a] to-[#1e293b]"
       : "bg-gradient-to-br from-[#e2e8f0] via-[#f8fafc] to-[#cbd5e1]";
 
   return (
@@ -104,7 +108,6 @@ export default function Home() {
         dark ? "text-white" : "text-gray-900"
       }`}
     >
-      {/* FIX: Make particles background transparent and behind all content */}
       <div className="absolute inset-0 -z-10 pointer-events-none">
         <ParticlesBackground darkMode={dark} />
       </div>

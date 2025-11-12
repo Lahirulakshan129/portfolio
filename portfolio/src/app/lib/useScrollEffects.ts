@@ -2,6 +2,14 @@
 
 import { useEffect, useRef } from "react";
 
+// Define proper types for the GSAP window extensions
+declare global {
+  interface Window {
+    gsap: typeof import("gsap").gsap;
+    ScrollTrigger: typeof import("gsap/ScrollTrigger").ScrollTrigger;
+  }
+}
+
 export const useScrollEffects = (darkMode: boolean) => {
   const scrollLoadedRef = useRef(false);
 
@@ -17,9 +25,9 @@ export const useScrollEffects = (darkMode: boolean) => {
 
         gsapModule.gsap.registerPlugin(ScrollTriggerModule.ScrollTrigger);
 
-        // expose for legacy code (confetti, etc.)
-        (window as any).gsap = gsapModule.gsap;
-        (window as any).ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
+        // expose for legacy code (confetti, etc.) with proper typing
+        window.gsap = gsapModule.gsap;
+        window.ScrollTrigger = ScrollTriggerModule.ScrollTrigger;
 
         scrollLoadedRef.current = true;
         console.log("GSAP loaded successfully!");
@@ -32,7 +40,7 @@ export const useScrollEffects = (darkMode: boolean) => {
   }, []);
 
   useEffect(() => {
-    const ScrollTrigger = (window as any).ScrollTrigger;
+    const ScrollTrigger = window.ScrollTrigger;
     if (!ScrollTrigger) return;
 
     const trigger = ScrollTrigger.getById("navbar");

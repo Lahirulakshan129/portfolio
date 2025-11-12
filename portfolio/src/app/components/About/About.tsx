@@ -590,7 +590,7 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
                 ref={titleRef}
                 className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 lg:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
               >
-                Hello, I'm Lahiru lakshan
+                Hello, I&apos;m Lahiru lakshan
               </h2>
 
               <div
