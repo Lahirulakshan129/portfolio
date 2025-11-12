@@ -1,17 +1,14 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
+import Script from "next/script"; 
 
 export const metadata: Metadata = {
   title: "Alex Doe – CS Student & Developer",
   description: "Personal portfolio of Alex Doe",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -19,7 +16,11 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
           rel="stylesheet"
         />
-        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js" />
+        {/* ✅ Use Next.js Script component for strategy */}
+        <Script
+          src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"
+          strategy="afterInteractive"
+        />
       </head>
       <body className="font-poppins">{children}</body>
     </html>

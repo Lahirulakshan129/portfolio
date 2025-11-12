@@ -59,10 +59,10 @@ export const Navbar = ({
             className="group relative"
           >
             <div className="text-xl font-black bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent transition-all duration-200 group-hover:scale-105">
-              AD
+              LL
             </div>
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent opacity-0 group-hover:opacity-100 blur-sm transition-all duration-200">
-              AD
+              LL
             </div>
           </button>
 
