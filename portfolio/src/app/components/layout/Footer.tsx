@@ -1,14 +1,21 @@
 import { Button } from "../ui/button";
 
-export const Footer = ({ scrollTo }: { scrollTo: (id: string) => void }) => (
-  <footer className="py-8 text-center border-t border-gray-700">
+interface FooterProps {
+  scrollTo: (id: string) => void;
+  darkMode: boolean;
+}
+
+export const Footer = ({ scrollTo, darkMode }: FooterProps) => (
+  <footer className={`py-8 text-center border-t ${darkMode ? 'border-gray-700' : 'border-gray-300'}`}>
     <div className="max-w-6xl mx-auto px-4">
-      <p className="mb-4">© 2025 Alex Doe. Built with Code & Coffee</p>
+      <p className={`mb-4 ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+        © 2025 Alex Doe. Built with Code & Coffee
+      </p>
       <Button
         onClick={() => scrollTo("home")}
-        className="bg-primary text-dark-bg px-6 py-2"
+        className={`px-6 py-2 ${darkMode ? 'bg-primary text-white' : 'bg-blue-600 text-white'}`}
       >
-        Back to Top Up Arrow
+        Back to Top ↑
       </Button>
     </div>
   </footer>
