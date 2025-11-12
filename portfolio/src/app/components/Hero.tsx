@@ -3,12 +3,19 @@ import { Button } from "./ui/button";
 import { useGSAP } from "@/lib/gsap";
 import { useRef } from "react";
 import gsap from "gsap";
-import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
 
 interface HeroProps {
   scrollTo: (id: string) => void;
   darkMode: boolean;
 }
+
+const handleDownloadCV = () => {
+  const link = document.createElement("a");
+  link.href = "/path-to-your-cv.pdf";
+  link.download = "Your-Name-CV.pdf";
+  link.click();
+};
 
 export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -25,12 +32,12 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
     {
       platform: "linkedin",
       icon: <Linkedin className="w-4 h-4" />,
-      url: "https://linkedin.com/in/yourusername",
+      url: "https://linkedin.com/in/lahiru-lakshan-b1b607201",
     },
     {
       platform: "email",
       icon: <Mail className="w-4 h-4" />,
-      url: "mailto:your@email.com",
+      url: "mailto:lahirulakshan129@gmail.com",
     },
   ];
 
@@ -54,8 +61,8 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
   };
 
   const getSocialIconBg = () => {
-    return darkMode 
-      ? "bg-white/5 backdrop-blur-lg border border-white/10" 
+    return darkMode
+      ? "bg-white/5 backdrop-blur-lg border border-white/10"
       : "bg-black/5 backdrop-blur-lg border border-gray-300";
   };
 
@@ -72,8 +79,8 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
   };
 
   const getScrollIndicatorBorder = () => {
-    return darkMode 
-      ? "border-gray-400/50 hover:border-cyan-400/70" 
+    return darkMode
+      ? "border-gray-400/50 hover:border-cyan-400/70"
       : "border-gray-600/50 hover:border-purple-400/70";
   };
 
@@ -114,30 +121,38 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       );
 
       // Text typing with enhanced cursor
-      tl.to(".typing", {
-        text: "Lahiru",
-        duration: 1.8,
-        ease: "power2.inOut",
-        onUpdate: function() {
-          if (Math.random() > 0.7) {
-            gsap.to(".cursor", {
-              opacity: 0,
-              duration: 0.1,
-              yoyo: true,
-              repeat: 1,
-            });
-          }
-        }
-      }, "-=1");
+      tl.to(
+        ".typing",
+        {
+          text: "Lahiru Lakshan",
+          duration: 1.8,
+          ease: "power2.inOut",
+          onUpdate: function () {
+            if (Math.random() > 0.7) {
+              gsap.to(".cursor", {
+                opacity: 0,
+                duration: 0.1,
+                yoyo: true,
+                repeat: 1,
+              });
+            }
+          },
+        },
+        "-=1"
+      );
 
       // Staggered content entrance
-      tl.to(".hero-element", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2,
-        stagger: 0.15,
-        ease: "power3.out",
-      }, "-=0.5");
+      tl.to(
+        ".hero-element",
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1.2,
+          stagger: 0.15,
+          ease: "power3.out",
+        },
+        "-=0.5"
+      );
 
       // Social icons special entrance
       tl.fromTo(
@@ -190,17 +205,19 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
     { scope: heroRef }
   );
 
-  // Mouse move parallax effect
+  // Mouse move parallax effect - EXCLUDE buttons from parallax
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!heroRef.current) return;
 
     const { clientX, clientY } = e;
-    const { width, height, left, top } = heroRef.current.getBoundingClientRect();
-    
+    const { width, height, left, top } =
+      heroRef.current.getBoundingClientRect();
+
     const x = (clientX - left) / width - 0.5;
     const y = (clientY - top) / height - 0.5;
 
-    gsap.to(".parallax-element", {
+    // Only apply parallax to non-button elements
+    gsap.to(".parallax-element:not(button)", {
       x: x * 30,
       y: y * 20,
       rotationX: y * 10,
@@ -233,29 +250,40 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       onMouseMove={handleMouseMove}
     >
       {/* Animated gradient background */}
-      <div className={`absolute inset-0 transition-colors duration-500 ${
-        darkMode 
-          ? "bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10" 
-          : "bg-gradient-to-br from-blue-200/20 via-transparent to-purple-200/20"
-      } animate-pulse`} />
-      
+      <div
+        className={`absolute inset-0 transition-colors duration-500 ${
+          darkMode
+            ? "bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10"
+            : "bg-gradient-to-br from-blue-200/20 via-transparent to-purple-200/20"
+        } animate-pulse`}
+      />
+
       {/* Floating background elements */}
-      <div ref={floatingElementsRef} className="absolute inset-0 overflow-hidden">
-        <div className={`floating-element absolute top-1/4 left-1/4 w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 rounded-full blur-3xl transition-colors duration-500 ${
-          darkMode 
-            ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20" 
-            : "bg-gradient-to-r from-cyan-400/15 to-blue-400/15"
-        }`} />
-        <div className={`floating-element absolute top-1/3 right-1/4 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full blur-3xl transition-colors duration-500 ${
-          darkMode 
-            ? "bg-gradient-to-r from-purple-500/15 to-pink-500/15" 
-            : "bg-gradient-to-r from-purple-400/10 to-pink-400/10"
-        }`} />
-        <div className={`floating-element absolute bottom-1/4 left-1/3 w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full blur-3xl transition-colors duration-500 ${
-          darkMode 
-            ? "bg-gradient-to-r from-orange-500/10 to-red-500/10" 
-            : "bg-gradient-to-r from-orange-400/5 to-red-400/5"
-        }`} />
+      <div
+        ref={floatingElementsRef}
+        className="absolute inset-0 overflow-hidden"
+      >
+        <div
+          className={`floating-element absolute top-1/4 left-1/4 w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 rounded-full blur-3xl transition-colors duration-500 ${
+            darkMode
+              ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20"
+              : "bg-gradient-to-r from-cyan-400/15 to-blue-400/15"
+          }`}
+        />
+        <div
+          className={`floating-element absolute top-1/3 right-1/4 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full blur-3xl transition-colors duration-500 ${
+            darkMode
+              ? "bg-gradient-to-r from-purple-500/15 to-pink-500/15"
+              : "bg-gradient-to-r from-purple-400/10 to-pink-400/10"
+          }`}
+        />
+        <div
+          className={`floating-element absolute bottom-1/4 left-1/3 w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full blur-3xl transition-colors duration-500 ${
+            darkMode
+              ? "bg-gradient-to-r from-orange-500/10 to-red-500/10"
+              : "bg-gradient-to-r from-orange-400/5 to-red-400/5"
+          }`}
+        />
       </div>
 
       {/* Particle background */}
@@ -272,47 +300,98 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
         ))}
       </div>
 
-      {/* Main content */}
-      <div className="hero-content text-center z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main content - Centered properly */}
+      <div className="hero-content text-center z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <h1
           ref={headingRef}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 opacity-0 hero-element parallax-element"
         >
-          <span className={`block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 md:mb-4 transition-colors duration-500 ${getTextColor()}`}>
+          <span
+            className={`block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 md:mb-4 transition-colors duration-500 ${getTextColor()}`}
+          >
             Hi, I'm
           </span>
-          <span className="typing bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent inline-block">
+          <span className="typing text-5xl bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent inline-block">
             {/* Name will be typed by GSAP */}
           </span>
-          <span className={`cursor w-0.5 h-8 sm:h-10 md:h-12 lg:h-16 ml-1 sm:ml-2 inline-block align-middle animate-pulse transition-colors duration-500 ${
-            darkMode ? "bg-cyan-400" : "bg-purple-500"
-          }`} />
+          <span
+            className={`cursor w-0.5 h-2 sm:h-10 md:h-10 lg:h-13 ml-1 sm:ml-2 inline-block align-bottom animate-pulse transition-colors duration-500 ${
+              darkMode ? "bg-cyan-400" : "bg-purple-500"
+            }`}
+          />
         </h1>
 
-        <p className={`text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 lg:mb-12 opacity-0 hero-element font-light tracking-wide transition-colors duration-500 ${getTextColor()}`}>
+        <p
+          className={`text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 lg:mb-12 opacity-0 hero-element font-light tracking-wide transition-colors duration-500 ${getTextColor()}`}
+        >
           Crafting digital experiences through{" "}
-          <span className={`font-semibold ${darkMode ? "text-cyan-400" : "text-cyan-600"}`}>code</span> and{" "}
-          <span className={`font-semibold ${darkMode ? "text-purple-400" : "text-purple-600"}`}>creativity</span>
+          <span
+            className={`font-semibold ${
+              darkMode ? "text-cyan-400" : "text-cyan-600"
+            }`}
+          >
+            code
+          </span>{" "}
+          and{" "}
+          <span
+            className={`font-semibold ${
+              darkMode ? "text-purple-400" : "text-purple-600"
+            }`}
+          >
+            creativity
+          </span>
         </p>
 
-        <Button
-          onClick={handleScrollToProjects}
-          className={`px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold opacity-0 hero-element parallax-element hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden ${
-            darkMode 
-              ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 hover:shadow-cyan-500/25" 
-              : "bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 hover:shadow-purple-500/25"
-          }`}
-        >
-          <span className="relative z-10 flex items-center">
-            Explore My Work
-            <ArrowDown className="ml-2 sm:ml-3 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-y-1 transition-transform duration-300" />
-          </span>
-          <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
-            darkMode 
-              ? "bg-gradient-to-r from-purple-500 to-pink-600" 
-              : "bg-gradient-to-r from-cyan-500 to-blue-600"
-          }`} />
-        </Button>
+        {/* Buttons container - centered and without parallax */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 hero-element">
+          {/* Explore My Work Button */}
+          <Button
+            onClick={handleScrollToProjects}
+            className={`px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden ${
+              darkMode
+                ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 hover:shadow-cyan-500/25"
+                : "bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 hover:shadow-purple-500/25"
+            }`}
+          >
+            <span className="relative z-10 flex items-center">
+              Explore My Work
+              <ArrowDown className="ml-2 sm:ml-3 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-y-1 transition-transform duration-300" />
+            </span>
+
+            {/* Animated overlay but non-interactive */}
+            <div
+              className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${
+                darkMode
+                  ? "bg-gradient-to-r from-purple-500 to-pink-600"
+                  : "bg-gradient-to-r from-cyan-500 to-blue-600"
+              }`}
+            />
+          </Button>
+
+          {/* Download CV Button */}
+          <Button
+            onClick={handleDownloadCV}
+            className={`px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden border ${
+              darkMode
+                ? "border-gray-600 bg-transparent text-white hover:bg-gray-800 hover:shadow-gray-500/25"
+                : "border-gray-300 bg-transparent text-gray-800 hover:bg-gray-50 hover:shadow-gray-500/25"
+            }`}
+          >
+            <span className="relative z-10 flex items-center">
+              Download CV
+              <Download className="ml-2 sm:ml-3 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-y-1 transition-transform duration-300" />
+            </span>
+
+            {/* Animated overlay but non-interactive */}
+            <div
+              className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none ${
+                darkMode
+                  ? "bg-gradient-to-r from-gray-700 to-gray-800"
+                  : "bg-gradient-to-r from-gray-100 to-gray-200"
+              }`}
+            />
+          </Button>
+        </div>
 
         {/* Social Links */}
         <div className="flex justify-center space-x-4 sm:space-x-6 md:space-x-8 mt-12 sm:mt-14 md:mt-16 opacity-0 hero-element">
@@ -325,7 +404,9 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
               className={`social-icon group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 hover:rotate-[360deg] ${getSocialIconBg()} ${getSocialIconHover()}`}
               aria-label={platform}
             >
-              <div className={`transition-colors duration-300 ${getSocialIconText()}`}>
+              <div
+                className={`transition-colors duration-300 ${getSocialIconText()}`}
+              >
                 {icon}
               </div>
             </a>
@@ -336,12 +417,20 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       {/* Enhanced Scroll Indicator */}
       <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 hero-element">
         <div className="flex flex-col items-center space-y-3 sm:space-y-4">
-          <div className={`text-xs sm:text-sm font-light tracking-wider uppercase transition-colors duration-500 ${getSecondaryTextColor()}`}>
+          <div
+            className={`text-xs sm:text-sm font-light tracking-wider uppercase transition-colors duration-500 ${getSecondaryTextColor()}`}
+          >
             Scroll to explore
           </div>
-          <div className={`w-6 h-10 sm:w-8 sm:h-12 border-2 rounded-full flex justify-center relative group transition-colors duration-500 ${getScrollIndicatorBorder()}`}>
-            <div className={`w-1 h-2 sm:h-3 rounded-full mt-2 animate-bounce transition-colors duration-500 ${getScrollIndicatorColor()}`} />
-            <div className={`absolute inset-0 rounded-full blur-md transition-all duration-500 ${getScrollIndicatorGlow()}`} />
+          <div
+            className={`w-6 h-10 sm:w-8 sm:h-12 border-2 rounded-full flex justify-center relative group transition-colors duration-500 ${getScrollIndicatorBorder()}`}
+          >
+            <div
+              className={`w-1 h-2 sm:h-3 rounded-full mt-2 animate-bounce transition-colors duration-500 ${getScrollIndicatorColor()}`}
+            />
+            <div
+              className={`absolute inset-0 rounded-full blur-md transition-all duration-500 ${getScrollIndicatorGlow()}`}
+            />
           </div>
         </div>
       </div>

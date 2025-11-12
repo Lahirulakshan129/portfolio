@@ -254,12 +254,12 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
       icon: Layout,
       description: "Modern frontend technologies and frameworks",
       skills: [
-        { name: "React", category: "Frontend", icon: Code2, level: "advanced", color: "blue" },
-        { name: "TypeScript", category: "Frontend", icon: Code2, level: "advanced", color: "blue" },
-        { name: "Next.js", category: "Frontend", icon: Globe, level: "intermediate", color: "gray" },
-        { name: "Tailwind CSS", category: "Frontend", icon: Palette, level: "advanced", color: "cyan" },
+        { name: "React", category: "Frontend", icon: Code2, level: "intermediate", color: "blue" },
+        { name: "TypeScript", category: "Frontend", icon: Code2, level: "intermediate", color: "blue" },
+        { name: " React Router", category: "Frontend", icon: Globe, level: "intermediate", color: "gray" },
+        { name: "Tailwind CSS", category: "Frontend", icon: Palette, level: "intermediate", color: "cyan" },
         { name: "Vue.js", category: "Frontend", icon: Zap, level: "beginner", color: "green" },
-        { name: "GSAP", category: "Frontend", icon: Sparkles, level: "intermediate", color: "green" }
+        { name: "Axios / Fetch API", category: "Frontend", icon: Cpu, level: "intermediate", color: "green" }
       ]
     },
     {
@@ -267,12 +267,12 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
       icon: Server,
       description: "Server-side technologies and databases",
       skills: [
-        { name: "Node.js", category: "Backend", icon: Database, level: "advanced", color: "green" },
-        { name: "Python", category: "Backend", icon: Cpu, level: "intermediate", color: "yellow" },
-        { name: "MongoDB", category: "Backend", icon: Database, level: "intermediate", color: "green" },
+        { name: "Spring Boot", category: "Backend", icon: Cpu, level: "advanced", color: "green" },
+        { name: "PostgreSQL", category: "Backend", icon: Database, level: "advanced", color: "yellow" },
+        { name: "Firebase", category: "Backend", icon: Cloud, level: "intermediate", color: "green" },
         { name: "PostgreSQL", category: "Backend", icon: Database, level: "intermediate", color: "blue" },
-        { name: "Redis", category: "Backend", icon: Database, level: "beginner", color: "red" },
-        { name: "REST APIs", category: "Backend", icon: Cloud, level: "advanced", color: "blue" }
+        { name: "PHP", category: "Backend", icon: Cpu, level: "intermediate", color: "red" },
+        { name: "REST APIs", category: "Backend", icon: Cloud, level: "intermediate", color: "blue" }
       ]
     },
     {
@@ -281,11 +281,11 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
       description: "Development tools and additional technologies",
       skills: [
         { name: "Git & GitHub", category: "Tools", icon: GitBranch, level: "advanced", color: "orange" },
-        { name: "Docker", category: "Tools", icon: Cloud, level: "intermediate", color: "blue" },
-        { name: "AWS", category: "Tools", icon: Cloud, level: "beginner", color: "orange" },
-        { name: "Figma", category: "Tools", icon: Figma, level: "intermediate", color: "purple" },
-        { name: "Jest", category: "Tools", icon: Shield, level: "intermediate", color: "red" },
-        { name: "Agile/Scrum", category: "Tools", icon: Users, level: "advanced", color: "green" }
+        { name: "Docker", category: "Tools", icon: Cloud, level: "beginner", color: "blue" },
+        { name: "Jetbrains", category: "Tools", icon: Cloud, level: "intermediate", color: "orange" },
+        { name: "Postman", category: "Tools", icon: Cpu, level: "intermediate", color: "pink" },
+        { name: "VS Code", category: "Tools", icon: Cpu, level: "advanced", color: "blue" },
+        { name: "Figma", category: "Tools", icon: Palette, level: "intermediate", color: "purple" }
       ]
     }
   ];

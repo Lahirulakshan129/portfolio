@@ -146,27 +146,29 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
+  const [submitError, setSubmitError] = useState<string>('');
 
   // Contact information
   const contactInfo: ContactInfo[] = [
     {
       icon: Mail,
       label: 'Email',
-      value: 'hello@alexjohnson.dev',
-      href: 'mailto:hello@alexjohnson.dev',
+      value: 'lahirulakshan129@gmail.com',
+      href: 'mailto:lahirulakshan129@gmail.com',
       color: 'from-blue-500 to-cyan-600'
     },
     {
       icon: Phone,
       label: 'Phone',
-      value: '+1 (555) 123-4567',
-      href: 'tel:+15551234567',
+      value: '+94 (78) 990-4877',
+      href: 'tel:+94789904877',
       color: 'from-green-500 to-emerald-600'
     },
     {
       icon: MapPin,
       label: 'Location',
-      value: 'San Francisco, CA',
+      value: 'Polgahawela , Srilanka',
+      href: 'https://maps.app.goo.gl/kFr92Nac1MFQoAvT8',
       color: 'from-purple-500 to-pink-600'
     }
   ];
@@ -267,6 +269,10 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
     if (errors[name as keyof FormErrors]) {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
+    // Clear submit error when user starts typing
+    if (submitError) {
+      setSubmitError('');
+    }
   };
 
   const validateForm = (): boolean => {
@@ -294,6 +300,7 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitError('');
     
     if (!validateForm()) {
       // Shake animation for errors
@@ -311,32 +318,62 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
 
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 1200));
-      console.log('Form submitted:', formData);
+      // Using FormData instead of JSON as Formspree expects form data
+      const formDataToSend = new FormData();
+      formDataToSend.append('name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('message', formData.message);
+
+      const response = await fetch('https://formspree.io/f/mzzybljn', {
+        method: 'POST',
+        body: formDataToSend,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      console.log('Response status:', response.status);
       
+      // FOR TESTING - Force show success message
+      // Remove this line in production and use the actual response check
       setIsSent(true);
-      setFormData({ name: '', email: '', message: '' });
       
-      // Success animation
-      if (formRef.current) {
-        gsap.to(formRef.current, {
-          scale: 1.01,
-          duration: 0.2,
-          yoyo: true,
-          repeat: 1,
-          ease: "power1.inOut"
-        });
+      if (response.ok) {
+        // Success - show success message
+        setIsSent(true);
+        setFormData({ name: '', email: '', message: '' });
+        
+        // Success animation
+        if (formRef.current) {
+          gsap.fromTo(formRef.current, 
+            {
+              scale: 1
+            },
+            {
+              scale: 1.02,
+              duration: 0.1,
+              yoyo: true,
+              repeat: 1,
+              ease: "power1.inOut"
+            }
+          );
+        }
+
+        // Reset success state after 4 seconds
+        setTimeout(() => {
+          setIsSent(false);
+        }, 4000);
+        
+      } else {
+        // Handle non-ok responses
+        const errorData = await response.json();
+        setSubmitError(errorData.error || 'Failed to send message. Please try again.');
       }
-
-      // Reset success state after 2.5 seconds
-      setTimeout(() => {
-        setIsSent(false);
-      }, 2500);
-
+      
     } catch (error) {
       console.error('Error submitting form:', error);
+      setSubmitError('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -510,12 +547,21 @@ const Contact: React.FC<ContactProps> = ({ darkMode = false }) => {
               )}
             </button>
 
-            {/* Success Message */}
+            {/* Success Message - FIXED POSITION */}
             {isSent && (
-              <div className="text-center p-2 rounded-md bg-green-500 bg-opacity-20 border border-green-500">
-                <div className="flex items-center justify-center gap-1 text-green-500 text-xs font-medium">
-                  <Sparkles size={10} />
-                  Message sent successfully
+              <div className="p-2 rounded-md bg-green-500 bg-opacity-90 border border-green-500">
+              <div className="flex items-center justify-center gap-1 text-white text-xs font-bold">
+                <Sparkles size={10} />
+                SUCCESS: Message sent!.
+              </div>
+            </div>
+            )}
+
+            {/* Error Message */}
+            {submitError && (
+              <div className="p-2 rounded-md bg-red-500 bg-opacity-20 border border-red-500">
+                <div className="text-red-500 text-xs font-medium text-center">
+                  {submitError}
                 </div>
               </div>
             )}
