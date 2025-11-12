@@ -10,10 +10,6 @@ import {
   Smartphone,
   Database,
   Cloud,
-  Zap,
-  Palette,
-  Shield,
-  Users,
   Rocket,
   ArrowRight,
   Star
@@ -49,12 +45,6 @@ interface TechnologyBadgeProps {
   darkMode?: boolean;
 }
 
-interface ProjectCategory {
-  name: string;
-  icon: LucideIcon;
-  count: number;
-}
-
 // Technology Badge Component
 const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({ technology, index, darkMode = false }) => {
   const badgeRef = useRef<HTMLSpanElement>(null);
@@ -87,7 +77,7 @@ const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({ technology, index, da
   return (
     <span
       ref={badgeRef}
-      className={`inline-block px-2 py-1 text-xs rounded-full border transition-all duration-300 ${
+      className={`inline-block px-1.5 py-0.5 text-xs rounded-full border transition-all duration-300 ${
         darkMode 
           ? 'bg-gray-800 border-gray-600 text-gray-300 hover:border-blue-500 hover:text-blue-400' 
           : 'bg-gray-100 border-gray-300 text-gray-700 hover:border-blue-400 hover:text-blue-600'
@@ -102,7 +92,6 @@ const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({ technology, index, da
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = false }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (cardRef.current) {
@@ -162,37 +151,37 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
 
   const getCategoryIcon = (category: string) => {
     switch (category.toLowerCase()) {
-      case 'web': return <Globe size={14} />;
-      case 'mobile': return <Smartphone size={14} />;
-      case 'fullstack': return <Database size={14} />;
-      case 'cloud': return <Cloud size={14} />;
-      default: return <Code2 size={14} />;
+      case 'web': return <Globe size={10} />;
+      case 'mobile': return <Smartphone size={10} />;
+      case 'fullstack': return <Database size={10} />;
+      case 'cloud': return <Cloud size={10} />;
+      default: return <Globe size={10} />;
     }
   };
 
   return (
     <div
       ref={cardRef}
-      className={`group relative rounded-2xl shadow-xl border overflow-hidden transition-all duration-500 hover:shadow-2xl transform-gpu ${
+      className={`group relative rounded-lg shadow-md border overflow-hidden transition-all duration-500 hover:shadow-lg transform-gpu ${
         darkMode 
           ? 'bg-gray-800 border-gray-700 hover:border-blue-600' 
           : 'bg-white border-gray-200 hover:border-blue-300'
-      } ${project.featured ? 'ring-2 ring-yellow-400' : ''}`}
+      } ${project.featured ? 'ring-1 ring-yellow-400' : ''}`}
     >
       {/* Featured Badge */}
       {project.featured && (
-        <div className="absolute top-4 left-4 z-10">
-          <div className="flex items-center gap-1 bg-yellow-400 text-yellow-900 px-3 py-1 rounded-full text-xs font-bold">
-            <Star size={12} fill="currentColor" />
+        <div className="absolute top-2 left-2 z-10">
+          <div className="flex items-center gap-1 bg-yellow-400 text-yellow-900 px-1.5 py-0.5 rounded-full text-xs font-bold">
+            <Star size={8} fill="currentColor" />
             Featured
           </div>
         </div>
       )}
 
       {/* Status Badge */}
-      <div className="absolute top-4 right-4 z-10">
-        <div className={`flex items-center gap-1 ${getStatusColor(project.status)} text-white px-2 py-1 rounded-full text-xs`}>
-          <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
+      <div className="absolute top-2 right-2 z-10">
+        <div className={`flex items-center gap-1 ${getStatusColor(project.status)} text-white px-1.5 py-0.5 rounded-full text-xs`}>
+          <div className="w-1 h-1 rounded-full bg-white"></div>
           {getStatusText(project.status)}
         </div>
       </div>
@@ -200,14 +189,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
       {/* Project Image */}
       <div 
         ref={imageRef}
-        className="relative h-48 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600"
+        className="relative h-32 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600"
       >
         <div className={`absolute inset-0 flex items-center justify-center ${
           darkMode ? 'bg-gray-900' : 'bg-gray-100'
         } bg-opacity-50`}>
           <div className="text-center">
             {getCategoryIcon(project.category)}
-            <h3 className={`text-lg font-bold mt-2 ${
+            <h3 className={`text-sm font-bold mt-1 ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
               {project.title}
@@ -217,25 +206,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
         
         {/* Hover Overlay */}
         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-          <div className="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 flex gap-3">
+          <div className="opacity-0 group-hover:opacity-100 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 flex gap-1.5">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
-                className="p-2 bg-white text-gray-900 rounded-full shadow-lg hover:scale-110 transform transition-all duration-200"
+                className="p-1 bg-white text-gray-900 rounded-full shadow-md hover:scale-110 transform transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <ExternalLink size={16} />
+                <ExternalLink size={12} />
               </a>
             )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
-                className="p-2 bg-gray-900 text-white rounded-full shadow-lg hover:scale-110 transform transition-all duration-200"
+                className="p-1 bg-gray-900 text-white rounded-full shadow-md hover:scale-110 transform transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Github size={16} />
+                <Github size={12} />
               </a>
             )}
           </div>
@@ -243,12 +232,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
       </div>
 
       {/* Project Content */}
-      <div 
-        ref={contentRef}
-        className="p-6"
-      >
+      <div className="p-3">
         {/* Category */}
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-1 mb-1.5">
           {getCategoryIcon(project.category)}
           <span className={`text-xs font-medium ${
             darkMode ? 'text-gray-400' : 'text-gray-600'
@@ -258,22 +244,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
         </div>
 
         {/* Title */}
-        <h3 className={`text-xl font-bold mb-2 transition-colors group-hover:text-blue-600 ${
+        <h3 className={`text-base font-bold mb-1.5 transition-colors group-hover:text-blue-600 ${
           darkMode ? 'text-white group-hover:text-blue-400' : 'text-gray-900'
         }`}>
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className={`text-sm mb-4 leading-relaxed ${
+        <p className={`text-xs mb-2.5 leading-relaxed ${
           darkMode ? 'text-gray-300' : 'text-gray-700'
         }`}>
           {project.description}
         </p>
 
         {/* Technologies */}
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {project.technologies.map((tech, techIndex) => (
+        <div className="flex flex-wrap gap-1 mb-2.5">
+          {project.technologies.slice(0, 3).map((tech, techIndex) => (
             <TechnologyBadge
               key={tech}
               technology={tech}
@@ -281,34 +267,41 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
               darkMode={darkMode}
             />
           ))}
+          {project.technologies.length > 3 && (
+            <span className={`text-xs px-1.5 py-0.5 ${
+              darkMode ? 'text-gray-400' : 'text-gray-600'
+            }`}>
+              +{project.technologies.length - 3}
+            </span>
+          )}
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex gap-1.5 pt-2 border-t border-gray-200 dark:border-gray-700">
           {project.liveUrl && (
             <a
               href={project.liveUrl}
-              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium group/btn"
+              className="flex items-center gap-1 px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 text-xs font-medium group/btn flex-1 justify-center"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Globe size={14} />
-              Live Demo
-              <ArrowRight size={12} className="group-hover/btn:translate-x-1 transition-transform" />
+              <Globe size={10} />
+              Live
+              <ArrowRight size={8} className="group-hover/btn:translate-x-0.5 transition-transform" />
             </a>
           )}
           {project.githubUrl && (
             <a
               href={project.githubUrl}
-              className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all duration-300 text-sm font-medium ${
+              className={`flex items-center gap-1 px-2 py-1 rounded-md border transition-all duration-300 text-xs font-medium ${
                 darkMode 
                   ? 'border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white' 
                   : 'border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-              }`}
+              } flex-1 justify-center`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <Github size={14} />
+              <Github size={10} />
               Code
             </a>
           )}
@@ -334,9 +327,9 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
     {
       id: 1,
       title: "E-Commerce Platform",
-      description: "Full-stack e-commerce solution with real-time inventory, payment processing, and admin dashboard.",
-      longDescription: "A comprehensive e-commerce platform built with modern technologies featuring user authentication, product management, shopping cart, and secure payment integration.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe", "Redux"],
+      description: "Full-stack e-commerce with real-time inventory and payments.",
+      longDescription: "A comprehensive e-commerce platform built with modern technologies.",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
       category: "FullStack",
       image: "/api/placeholder/400/200",
       liveUrl: "https://demo-ecommerce.example.com",
@@ -347,9 +340,9 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
     {
       id: 2,
       title: "Task Management App",
-      description: "Collaborative task management application with real-time updates and team collaboration features.",
-      longDescription: "A Kanban-style task management tool that enables teams to collaborate effectively with drag-and-drop functionality and real-time notifications.",
-      technologies: ["React", "TypeScript", "Socket.io", "PostgreSQL", "Tailwind"],
+      description: "Collaborative task management with real-time updates.",
+      longDescription: "Kanban-style task management tool for team collaboration.",
+      technologies: ["React", "TypeScript", "Socket.io", "PostgreSQL"],
       category: "Web",
       image: "/api/placeholder/400/200",
       liveUrl: "https://tasks.example.com",
@@ -360,9 +353,9 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
     {
       id: 3,
       title: "Weather Dashboard",
-      description: "Real-time weather forecasting application with interactive maps and location-based services.",
-      longDescription: "A responsive weather dashboard that provides accurate forecasts, severe weather alerts, and beautiful data visualizations.",
-      technologies: ["Vue.js", "D3.js", "Weather API", "PWA", "Chart.js"],
+      description: "Real-time weather forecasting with interactive maps.",
+      longDescription: "Responsive weather dashboard with data visualizations.",
+      technologies: ["Vue.js", "D3.js", "Weather API", "PWA"],
       category: "Web",
       image: "/api/placeholder/400/200",
       liveUrl: "https://weather-dash.example.com",
@@ -372,10 +365,10 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
     },
     {
       id: 4,
-      title: "Fitness Tracker Mobile App",
-      description: "Cross-platform mobile application for tracking workouts, nutrition, and fitness goals.",
-      longDescription: "A React Native fitness app that helps users track their workouts, set goals, and monitor progress with beautiful charts and analytics.",
-      technologies: ["React Native", "Firebase", "Chart.js", "Health APIs"],
+      title: "Fitness Tracker",
+      description: "Mobile app for tracking workouts and fitness goals.",
+      longDescription: "React Native fitness app with progress tracking.",
+      technologies: ["React Native", "Firebase", "Chart.js"],
       category: "Mobile",
       image: "/api/placeholder/400/200",
       liveUrl: "https://fitness-app.example.com",
@@ -385,10 +378,10 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
     },
     {
       id: 5,
-      title: "Cloud File Storage",
-      description: "Secure cloud storage solution with file sharing, collaboration, and advanced security features.",
-      longDescription: "A secure cloud storage platform with end-to-end encryption, file versioning, and seamless collaboration tools for teams.",
-      technologies: ["AWS", "React", "Node.js", "Encryption", "WebRTC"],
+      title: "Cloud Storage",
+      description: "Secure cloud storage with file sharing.",
+      longDescription: "Secure cloud storage platform with encryption.",
+      technologies: ["AWS", "React", "Node.js", "Encryption"],
       category: "Cloud",
       image: "/api/placeholder/400/200",
       githubUrl: "https://github.com/username/cloud-storage",
@@ -398,22 +391,14 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
     {
       id: 6,
       title: "AI Content Generator",
-      description: "AI-powered content creation tool with natural language processing and multiple content formats.",
-      longDescription: "An intelligent content generation platform that uses machine learning to create high-quality written content for various use cases.",
-      technologies: ["Python", "FastAPI", "React", "OpenAI API", "Docker"],
+      description: "AI-powered content creation tool.",
+      longDescription: "ML platform for content generation.",
+      technologies: ["Python", "FastAPI", "React", "OpenAI"],
       category: "Web",
       image: "/api/placeholder/400/200",
       featured: false,
       status: "planned"
     }
-  ];
-
-  const categories: ProjectCategory[] = [
-    { name: "All", icon: Globe, count: projects.length },
-    { name: "Web", icon: Globe, count: projects.filter(p => p.category === "Web").length },
-    { name: "Mobile", icon: Smartphone, count: projects.filter(p => p.category === "Mobile").length },
-    { name: "FullStack", icon: Database, count: projects.filter(p => p.category === "FullStack").length },
-    { name: "Cloud", icon: Cloud, count: projects.filter(p => p.category === "Cloud").length }
   ];
 
   useGSAP(() => {
@@ -486,22 +471,22 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
   return (
     <div 
       ref={containerRef}
-      className={`min-h-screen transition-colors duration-500 py-16 ${
+      className={`min-h-screen transition-colors duration-500 py-12 md:py-20 ${
         darkMode 
           ? 'bg-gradient-to-br from-gray-900 to-purple-900' 
           : 'bg-gradient-to-br from-gray-50 to-purple-50'
       }`}
     >
-      <div className="container mx-auto px-4 max-w-7xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-5xl lg:max-w-6xl">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className={`p-2 rounded-xl ${
+        <div className="text-center mb-10 md:mb-12">
+          <div className="inline-flex items-center gap-1.5 mb-2 md:mb-3">
+            <div className={`p-1 rounded-md ${
               darkMode ? 'bg-purple-900 text-purple-400' : 'bg-purple-100 text-purple-600'
             }`}>
-              <Rocket size={20} />
+              <Rocket size={14} />
             </div>
-            <span className={`text-sm font-semibold ${
+            <span className={`text-xs font-semibold ${
               darkMode ? 'text-purple-400' : 'text-purple-600'
             }`}>
               PORTFOLIO
@@ -510,26 +495,25 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
 
           <h1 
             ref={titleRef}
-            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
+            className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent"
           >
             My Projects
           </h1>
           
           <p 
             ref={subtitleRef}
-            className={`text-lg md:text-xl max-w-2xl mx-auto leading-relaxed ${
+            className={`text-sm sm:text-base max-w-2xl mx-auto leading-relaxed ${
               darkMode ? 'text-gray-300' : 'text-gray-700'
             }`}
           >
-            A collection of my recent work showcasing full-stack development, 
-            modern UI/UX design, and innovative solutions.
+            A collection of my recent work showcasing full-stack development and modern solutions.
           </p>
         </div>
 
         {/* Projects Grid */}
         <div 
           ref={gridRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6"
         >
           {projects.map((project, index) => (
             <ProjectCard

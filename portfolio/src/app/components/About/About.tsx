@@ -103,9 +103,9 @@ const Badge: React.FC<BadgeProps> = ({ children, icon: Icon, delay = 0, darkMode
   return (
     <div
       ref={badgeRef}
-      className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl hover:from-blue-600 hover:to-purple-700 cursor-pointer transform-gpu"
+      className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:from-blue-600 hover:to-purple-700 cursor-pointer transform-gpu"
     >
-      {Icon && <Icon size={14} />}
+      {Icon && <Icon size={12} />}
       <span className="text-xs font-medium">{children}</span>
     </div>
   );
@@ -144,7 +144,7 @@ const Card: React.FC<CardProps> = ({ title, subtitle, period, description, icon:
   return (
     <div
       ref={cardRef}
-      className={`group p-4 rounded-xl shadow-lg border transition-all duration-500 hover:shadow-xl hover:scale-102 transform-gpu ${
+      className={`group p-4 rounded-lg shadow-lg border transition-all duration-500 hover:shadow-xl hover:scale-[1.02] transform-gpu ${
         darkMode 
           ? 'bg-gray-800 border-gray-700 hover:border-blue-600' 
           : 'bg-white border-gray-200 hover:border-blue-300'
@@ -155,15 +155,15 @@ const Card: React.FC<CardProps> = ({ title, subtitle, period, description, icon:
           <div className={`p-1.5 rounded-lg ${
             darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-100 text-blue-600'
           }`}>
-            {Icon && <Icon size={16} />}
+            {Icon && <Icon size={14} />}
           </div>
           <div>
-            <h3 className={`text-base font-semibold transition-colors group-hover:text-blue-600 ${
+            <h3 className={`text-sm font-semibold transition-colors group-hover:text-blue-600 ${
               darkMode ? 'text-white group-hover:text-blue-400' : 'text-gray-900'
             }`}>
               {title}
             </h3>
-            <p className={`text-sm ${
+            <p className={`text-xs ${
               darkMode ? 'text-gray-400' : 'text-gray-600'
             }`}>
               {subtitle}
@@ -196,7 +196,7 @@ const Card: React.FC<CardProps> = ({ title, subtitle, period, description, icon:
               rel="noopener noreferrer"
             >
               {link.label}
-              <ExternalLink size={12} />
+              <ExternalLink size={10} />
             </a>
           ))}
         </div>
@@ -252,7 +252,7 @@ const ProfilePhoto: React.FC<{ darkMode?: boolean }> = ({ darkMode = false }) =>
         ref={borderRef}
         className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-75"
         style={{
-          padding: '3px',
+          padding: '2px',
           background: 'conic-gradient(from 0deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)',
           WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
           WebkitMaskComposite: 'xor',
@@ -263,26 +263,26 @@ const ProfilePhoto: React.FC<{ darkMode?: boolean }> = ({ darkMode = false }) =>
       {/* Profile photo */}
       <div
         ref={photoRef}
-        className="relative w-32 h-32 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-2xl font-bold shadow-xl"
+        className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-lg sm:text-xl font-bold shadow-lg"
       >
-        <div className={`w-28 h-28 md:w-44 md:h-44 rounded-full flex items-center justify-center overflow-hidden ${
+        <div className={`w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 rounded-full flex items-center justify-center overflow-hidden ${
           darkMode ? 'bg-gray-600' : 'bg-gray-300'
         }`}>
           {/* Replace with actual image */}
           <div className={`w-full h-full bg-gradient-to-br flex items-center justify-center ${
             darkMode ? 'from-blue-800 to-purple-900' : 'from-blue-200 to-purple-300'
           }`}>
-            <User size={48} className="text-white opacity-90" />
+            <User size={32} className="sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white opacity-90" />
           </div>
         </div>
       </div>
 
       {/* Floating elements */}
-      <div className="absolute -top-2 -right-2 w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center shadow-md">
-        <Trophy size={16} className="text-white" />
+      <div className="absolute -top-1 -right-1 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-yellow-400 rounded-full flex items-center justify-center shadow-sm">
+        <Trophy size={10} className="sm:w-3 sm:h-3 text-white" />
       </div>
-      <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-green-400 rounded-full flex items-center justify-center shadow-md">
-        <Code2 size={14} className="text-white" />
+      <div className="absolute -bottom-1 -left-1 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 bg-green-400 rounded-full flex items-center justify-center shadow-sm">
+        <Code2 size={10} className="sm:w-3 sm:h-3 text-white" />
       </div>
     </div>
   );
@@ -324,18 +324,18 @@ const SocialLinks: React.FC<{ darkMode?: boolean }> = ({ darkMode = false }) => 
   ];
 
   return (
-    <div ref={socialRef} className="flex gap-2 justify-center md:justify-start">
+    <div ref={socialRef} className="flex gap-2 justify-center lg:justify-start">
       {socials.map((social, index) => (
         <a
           key={index}
           href={social.href}
-          className={`p-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 transform-gpu ${
+          className={`p-1.5 sm:p-2 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 transform-gpu ${
             darkMode ? 'bg-gray-800 text-gray-400' : 'bg-white text-gray-600'
           }`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <social.icon size={16} />
+          <social.icon size={14} className="sm:w-4 sm:h-4" />
         </a>
       ))}
     </div>
@@ -479,22 +479,22 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
   return (
     <div 
       ref={containerRef}
-      className={`min-h-screen transition-colors duration-500 flex items-center justify-center ${
+      className={`min-h-screen transition-colors duration-500 flex items-center justify-center py-16 md:py-24 ${
         darkMode 
           ? 'bg-gradient-to-br from-gray-900 to-blue-900' 
           : 'bg-gradient-to-br from-gray-50 to-blue-50'
       }`}
     >
-      <div className="container mx-auto px-4 py-8 max-w-6xl">
-        {/* Header - Removed dark mode toggle */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl lg:max-w-6xl">
+        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-2">
-            <div className={`p-2 rounded-xl ${
+            <div className={`p-1.5 sm:p-2 rounded-lg ${
               darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-100 text-blue-600'
             }`}>
-              <User size={20} />
+              <User size={16} className="sm:w-5 sm:h-5" />
             </div>
-            <h1 className={`text-xl font-bold ${
+            <h1 className={`text-lg sm:text-xl font-bold ${
               darkMode ? 'text-white' : 'text-gray-900'
             }`}>
               About Me
@@ -503,21 +503,21 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
         </div>
 
         {/* Main Content Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8 items-start">
           {/* Left Column - Text Content */}
-          <div className="space-y-6">
+          <div className="space-y-4 lg:space-y-6">
             {/* Intro Section */}
-            <section className="mb-8">
+            <section className="mb-6 lg:mb-8">
               <h2 
                 ref={titleRef}
-                className="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+                className="text-xl sm:text-2xl lg:text-3xl font-bold mb-3 lg:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
               >
                 Hello, I'm Alex Johnson
               </h2>
               
               <div 
                 ref={bioRef}
-                className={`text-base md:text-lg leading-relaxed space-y-3 ${
+                className={`text-sm sm:text-base leading-relaxed space-y-2 lg:space-y-3 ${
                   darkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}
               >
@@ -528,24 +528,25 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
                 <p>
                   Specialized in modern JavaScript ecosystems, particularly React and Node.js.
                 </p>
-                <div className={`flex items-center gap-2 text-sm ${
+                <div className={`flex items-center gap-2 text-xs sm:text-sm ${
                   darkMode ? 'text-gray-400' : 'text-gray-600'
                 }`}>
-                  <MapPin size={14} />
+                  <MapPin size={12} className="sm:w-4 sm:h-4" />
                   <span>San Francisco, CA</span>
                 </div>
               </div>
-                </section>
-            {/* Skills Section - Compact and within viewport */}
-            <section ref={skillsRef} className="mb-6">
-              <h2 className={`text-lg md:text-xl font-bold mb-4 flex items-center gap-2 ${
+            </section>
+
+            {/* Skills Section */}
+            <section ref={skillsRef} className="mb-4 lg:mb-6">
+              <h2 className={`text-base sm:text-lg lg:text-xl font-bold mb-3 lg:mb-4 flex items-center gap-2 ${
                 darkMode ? 'text-white' : 'text-gray-900'
               }`}>
-                <Code2 size={20} className="text-blue-600 dark:text-blue-400" />
+                <Code2 size={16} className="sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400" />
                 Skills & Technologies
               </h2>
               
-              <div className="flex flex-wrap gap-2 max-h-32 overflow-hidden">
+              <div className="flex flex-wrap gap-1.5 lg:gap-2">
                 {skills.map((skill, index) => (
                   <Badge 
                     key={skill.name} 
@@ -558,6 +559,11 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
                 ))}
               </div>
             </section>
+
+            {/* Social Links */}
+            <div className="pt-2">
+              <SocialLinks darkMode={darkMode} />
+            </div>
           </div>
 
           {/* Right Column - Photo */}
@@ -568,16 +574,16 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
           </div>
         </div>
 
-        {/* Timeline/Experience Section - Compact
-        <section ref={timelineRef} className="mt-8">
-          <h2 className={`text-lg md:text-xl font-bold mb-4 flex items-center gap-2 ${
+        {/* Experience Section */}
+        <section ref={timelineRef} className="mt-8 lg:mt-12">
+          <h2 className={`text-base sm:text-lg lg:text-xl font-bold mb-4 lg:mb-6 flex items-center gap-2 ${
             darkMode ? 'text-white' : 'text-gray-900'
           }`}>
-            <Calendar size={20} className="text-blue-600 dark:text-blue-400" />
+            <Calendar size={16} className="sm:w-5 sm:h-5 text-blue-600 dark:text-blue-400" />
             Experience
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6">
             {experiences.map((experience, index) => (
               <Card
                 key={index}
@@ -592,10 +598,10 @@ const About: React.FC<AboutProps> = ({ darkMode = false }) => {
               />
             ))}
           </div>
-        </section> */}
+        </section>
 
-        {/* Compact Footer */}
-        <footer className={`text-center text-xs mt-8 ${
+        {/* Footer */}
+        <footer className={`text-center text-xs mt-8 lg:mt-12 ${
           darkMode ? 'text-gray-400' : 'text-gray-600'
         }`}>
           <p>© 2024 Alex Johnson. Built with React, GSAP & Tailwind.</p>

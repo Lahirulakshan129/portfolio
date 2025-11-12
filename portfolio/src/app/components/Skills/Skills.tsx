@@ -28,14 +28,14 @@ gsap.registerPlugin(ScrollTrigger);
 interface Skill {
   name: string;
   category: string;
-  icon: LucideIcon;
+  icon: React.ElementType;
   level: 'advanced' | 'intermediate' | 'beginner';
   color: string;
 }
 
 interface SkillCategory {
   name: string;
-  icon: LucideIcon;
+  icon: React.ElementType;
   description: string;
   skills: Skill[];
 }
@@ -83,7 +83,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index, darkMode = false })
     // Icon floating animation
     if (iconRef.current) {
       gsap.to(iconRef.current, {
-        y: -5,
+        y: -3,
         duration: 2,
         repeat: -1,
         yoyo: true,
@@ -113,27 +113,27 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index, darkMode = false })
   return (
     <div
       ref={cardRef}
-      className={`group p-4 rounded-xl border-2 transition-all duration-500 hover:scale-105 hover:shadow-xl transform-gpu ${
+      className={`group p-3 rounded-lg border transition-all duration-500 hover:scale-[1.02] hover:shadow-lg transform-gpu ${
         darkMode 
           ? 'bg-gray-800 border-gray-700 hover:border-blue-600' 
           : 'bg-white border-gray-200 hover:border-blue-300'
       }`}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-3">
+      <div className="flex items-start justify-between">
+        <div className="flex items-center gap-2">
           <div 
             ref={iconRef}
-            className={`p-2 rounded-lg bg-gradient-to-r ${getLevelColor(skill.level)} text-white shadow-md`}
+            className={`p-1.5 rounded-md bg-gradient-to-r ${getLevelColor(skill.level)} text-white shadow-sm`}
           >
-            <skill.icon size={20} />
+            <skill.icon size={16} />
           </div>
           <div>
-            <h3 className={`font-semibold text-lg transition-colors group-hover:text-blue-600 ${
+            <h3 className={`font-semibold text-sm transition-colors group-hover:text-blue-600 ${
               darkMode ? 'text-white group-hover:text-blue-400' : 'text-gray-900'
             }`}>
               {skill.name}
             </h3>
-            <span className={`text-xs px-2 py-1 rounded-full ${
+            <span className={`text-xs px-1.5 py-0.5 rounded-full ${
               skill.level === 'advanced' 
                 ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
                 : skill.level === 'intermediate'
@@ -147,7 +147,7 @@ const SkillCard: React.FC<SkillCardProps> = ({ skill, index, darkMode = false })
       </div>
       
       {/* Animated background effect */}
-      <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${getLevelColor(skill.level)} opacity-0 group-hover:opacity-5 transition-opacity duration-300 -z-10`} />
+      <div className={`absolute inset-0 rounded-lg bg-gradient-to-r ${getLevelColor(skill.level)} opacity-0 group-hover:opacity-5 transition-opacity duration-300 -z-10`} />
     </div>
   );
 };
@@ -201,20 +201,20 @@ const CategorySection: React.FC<CategorySectionProps> = ({ category, darkMode = 
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} className="mb-12">
-      <div className="flex items-center gap-3 mb-6">
-        <div className={`p-2 rounded-xl ${
+    <section ref={sectionRef} className="mb-8">
+      <div className="flex items-center gap-2 mb-4">
+        <div className={`p-1.5 rounded-lg ${
           darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-100 text-blue-600'
         }`}>
-          <category.icon size={24} />
+          <category.icon size={18} />
         </div>
         <div>
-          <h2 ref={titleRef} className={`text-2xl font-bold ${
+          <h2 ref={titleRef} className={`text-lg font-bold ${
             darkMode ? 'text-white' : 'text-gray-900'
           }`}>
             {category.name}
           </h2>
-          <p className={`text-sm ${
+          <p className={`text-xs ${
             darkMode ? 'text-gray-400' : 'text-gray-600'
           }`}>
             {category.description}
@@ -222,7 +222,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ category, darkMode = 
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {category.skills.map((skill, index) => (
           <div key={skill.name} className="skill-card">
             <SkillCard
@@ -338,22 +338,22 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
   return (
     <div 
       ref={containerRef}
-      className={`min-h-screen transition-colors duration-500 py-16 ${
+      className={`min-h-screen transition-colors duration-500 py-12 md:py-20 ${
         darkMode 
           ? 'bg-gradient-to-br from-gray-900 to-blue-900' 
           : 'bg-gradient-to-br from-gray-50 to-blue-50'
       }`}
     >
-      <div className="container mx-auto px-4 max-w-6xl">
+      <div className="container mx-auto px-4 sm:px-6 max-w-4xl lg:max-w-6xl">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className={`p-2 rounded-xl ${
+        <div className="text-center mb-10 md:mb-12">
+          <div className="inline-flex items-center gap-1.5 mb-2 md:mb-3">
+            <div className={`p-1 rounded-md ${
               darkMode ? 'bg-blue-900 text-blue-400' : 'bg-blue-100 text-blue-600'
             }`}>
-              <Zap size={20} />
+              <Zap size={14} />
             </div>
-            <span className={`text-sm font-semibold ${
+            <span className={`text-xs font-semibold ${
               darkMode ? 'text-blue-400' : 'text-blue-600'
             }`}>
               TECHNOLOGIES
@@ -362,14 +362,14 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
 
           <h1 
             ref={titleRef}
-            className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
+            className="text-xl sm:text-2xl md:text-3xl font-bold mb-3 md:mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
           >
             Skills & Technologies
           </h1>
           
           <p 
             ref={subtitleRef}
-            className={`text-lg md:text-xl max-w-2xl mx-auto leading-relaxed ${
+            className={`text-sm sm:text-base max-w-2xl mx-auto leading-relaxed ${
               darkMode ? 'text-gray-300' : 'text-gray-700'
             }`}
           >
@@ -379,7 +379,7 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
         </div>
 
         {/* Skills Categories */}
-        <div className="space-y-12">
+        <div className="space-y-8">
           {skillCategories.map((category, index) => (
             <CategorySection
               key={category.name}
@@ -390,22 +390,22 @@ const Skills: React.FC<SkillsProps> = ({ darkMode = false }) => {
         </div>
 
         {/* Additional Info Section */}
-        <div className={`text-center mt-16 p-8 rounded-2xl ${
+        <div className={`text-center mt-12 p-6 rounded-xl ${
           darkMode ? 'bg-gray-800' : 'bg-white'
-        } shadow-lg border ${
+        } shadow-md border ${
           darkMode ? 'border-gray-700' : 'border-gray-200'
         }`}>
-          <div className={`p-3 rounded-full inline-flex mb-4 ${
+          <div className={`p-2 rounded-full inline-flex mb-3 ${
             darkMode ? 'bg-green-900 text-green-400' : 'bg-green-100 text-green-600'
           }`}>
-            <Sparkles size={24} />
+            <Sparkles size={18} />
           </div>
-          <h3 className={`text-2xl font-bold mb-4 ${
+          <h3 className={`text-lg font-bold mb-3 ${
             darkMode ? 'text-white' : 'text-gray-900'
           }`}>
             Always Learning
           </h3>
-          <p className={`text-lg max-w-md mx-auto ${
+          <p className={`text-sm max-w-md mx-auto ${
             darkMode ? 'text-gray-300' : 'text-gray-700'
           }`}>
             Continuously exploring new technologies and improving my skills 

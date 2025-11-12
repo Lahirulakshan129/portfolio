@@ -6,7 +6,7 @@ import { Hero } from "@/components/Hero";
 import About from "@/components/About/About";
 import  Projects  from "@/components/projects/Projects";
 import  Skills  from "@/components/Skills/Skills";
-import { Contact } from "@/components/Contact/Contact";
+import  Contact  from "@/components/Contact/Contact";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/layout/Section";
 import { useGSAP } from "@/lib/gsap";

@@ -19,17 +19,17 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
   const socials = [
     {
       platform: "github",
-      icon: <Github className="w-5 h-5" />,
+      icon: <Github className="w-4 h-4" />,
       url: "https://github.com/lahirulakshan129",
     },
     {
       platform: "linkedin",
-      icon: <Linkedin className="w-5 h-5" />,
+      icon: <Linkedin className="w-4 h-4" />,
       url: "https://linkedin.com/in/yourusername",
     },
     {
       platform: "email",
-      icon: <Mail className="w-5 h-5" />,
+      icon: <Mail className="w-4 h-4" />,
       url: "mailto:your@email.com",
     },
   ];
@@ -40,7 +40,6 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       ? "bg-gradient-to-br from-black via-slate-900 to-blue-950"
       : "bg-gradient-to-br from-slate-100 via-blue-50 to-white";
   };
-  
 
   const getTextColor = () => {
     return darkMode ? "text-gray-300" : "text-gray-700";
@@ -116,7 +115,7 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
 
       // Text typing with enhanced cursor
       tl.to(".typing", {
-        text: "Alex Doe",
+        text: "Lahiru",
         duration: 1.8,
         ease: "power2.inOut",
         onUpdate: function() {
@@ -242,17 +241,17 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       
       {/* Floating background elements */}
       <div ref={floatingElementsRef} className="absolute inset-0 overflow-hidden">
-        <div className={`floating-element absolute top-1/4 left-1/4 w-72 h-72 rounded-full blur-3xl transition-colors duration-500 ${
+        <div className={`floating-element absolute top-1/4 left-1/4 w-48 h-48 md:w-60 md:h-60 lg:w-72 lg:h-72 rounded-full blur-3xl transition-colors duration-500 ${
           darkMode 
             ? "bg-gradient-to-r from-cyan-500/20 to-blue-500/20" 
             : "bg-gradient-to-r from-cyan-400/15 to-blue-400/15"
         }`} />
-        <div className={`floating-element absolute top-1/3 right-1/4 w-96 h-96 rounded-full blur-3xl transition-colors duration-500 ${
+        <div className={`floating-element absolute top-1/3 right-1/4 w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full blur-3xl transition-colors duration-500 ${
           darkMode 
             ? "bg-gradient-to-r from-purple-500/15 to-pink-500/15" 
             : "bg-gradient-to-r from-purple-400/10 to-pink-400/10"
         }`} />
-        <div className={`floating-element absolute bottom-1/4 left-1/3 w-64 h-64 rounded-full blur-3xl transition-colors duration-500 ${
+        <div className={`floating-element absolute bottom-1/4 left-1/3 w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full blur-3xl transition-colors duration-500 ${
           darkMode 
             ? "bg-gradient-to-r from-orange-500/10 to-red-500/10" 
             : "bg-gradient-to-r from-orange-400/5 to-red-400/5"
@@ -264,7 +263,7 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className={`particle absolute w-2 h-2 rounded-full blur-sm transition-colors duration-500 ${getParticleColor()}`}
+            className={`particle absolute w-1.5 h-1.5 md:w-2 md:h-2 rounded-full blur-sm transition-colors duration-500 ${getParticleColor()}`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -274,23 +273,23 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       </div>
 
       {/* Main content */}
-      <div className="hero-content text-center z-10 max-w-4xl mx-auto px-4">
+      <div className="hero-content text-center z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1
           ref={headingRef}
-          className="text-6xl md:text-8xl lg:text-9xl font-black mb-8 opacity-0 hero-element parallax-element"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-6 opacity-0 hero-element parallax-element"
         >
-          <span className={`block text-4xl md:text-6xl font-light mb-4 transition-colors duration-500 ${getTextColor()}`}>
+          <span className={`block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light mb-3 md:mb-4 transition-colors duration-500 ${getTextColor()}`}>
             Hi, I'm
           </span>
           <span className="typing bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent inline-block">
             {/* Name will be typed by GSAP */}
           </span>
-          <span className={`cursor w-1 h-16 md:h-20 ml-2 inline-block align-middle animate-pulse transition-colors duration-500 ${
+          <span className={`cursor w-0.5 h-8 sm:h-10 md:h-12 lg:h-16 ml-1 sm:ml-2 inline-block align-middle animate-pulse transition-colors duration-500 ${
             darkMode ? "bg-cyan-400" : "bg-purple-500"
           }`} />
         </h1>
 
-        <p className={`text-xl md:text-2xl lg:text-3xl mb-12 opacity-0 hero-element font-light tracking-wide transition-colors duration-500 ${getTextColor()}`}>
+        <p className={`text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 lg:mb-12 opacity-0 hero-element font-light tracking-wide transition-colors duration-500 ${getTextColor()}`}>
           Crafting digital experiences through{" "}
           <span className={`font-semibold ${darkMode ? "text-cyan-400" : "text-cyan-600"}`}>code</span> and{" "}
           <span className={`font-semibold ${darkMode ? "text-purple-400" : "text-purple-600"}`}>creativity</span>
@@ -298,7 +297,7 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
 
         <Button
           onClick={handleScrollToProjects}
-          className={`px-10 py-6 text-lg font-semibold opacity-0 hero-element parallax-element hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden ${
+          className={`px-6 py-3 sm:px-8 sm:py-4 text-sm sm:text-base font-semibold opacity-0 hero-element parallax-element hover:scale-105 hover:shadow-2xl transition-all duration-300 group relative overflow-hidden ${
             darkMode 
               ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 hover:shadow-cyan-500/25" 
               : "bg-gradient-to-r from-purple-500 to-pink-600 text-white hover:from-purple-600 hover:to-pink-700 hover:shadow-purple-500/25"
@@ -306,7 +305,7 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
         >
           <span className="relative z-10 flex items-center">
             Explore My Work
-            <ArrowDown className="ml-3 w-5 h-5 group-hover:translate-y-1 transition-transform duration-300" />
+            <ArrowDown className="ml-2 sm:ml-3 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-y-1 transition-transform duration-300" />
           </span>
           <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${
             darkMode 
@@ -316,14 +315,14 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
         </Button>
 
         {/* Social Links */}
-        <div className="flex justify-center space-x-8 mt-16 opacity-0 hero-element">
+        <div className="flex justify-center space-x-4 sm:space-x-6 md:space-x-8 mt-12 sm:mt-14 md:mt-16 opacity-0 hero-element">
           {socials.map(({ platform, icon, url }) => (
             <a
               key={platform}
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`social-icon group w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 hover:rotate-[360deg] ${getSocialIconBg()} ${getSocialIconHover()}`}
+              className={`social-icon group w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-500 hover:scale-110 hover:rotate-[360deg] ${getSocialIconBg()} ${getSocialIconHover()}`}
               aria-label={platform}
             >
               <div className={`transition-colors duration-300 ${getSocialIconText()}`}>
@@ -335,13 +334,13 @@ export const Hero = ({ scrollTo, darkMode }: HeroProps) => {
       </div>
 
       {/* Enhanced Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 hero-element">
-        <div className="flex flex-col items-center space-y-4">
-          <div className={`text-sm font-light tracking-wider uppercase transition-colors duration-500 ${getSecondaryTextColor()}`}>
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 hero-element">
+        <div className="flex flex-col items-center space-y-3 sm:space-y-4">
+          <div className={`text-xs sm:text-sm font-light tracking-wider uppercase transition-colors duration-500 ${getSecondaryTextColor()}`}>
             Scroll to explore
           </div>
-          <div className={`w-8 h-12 border-2 rounded-full flex justify-center relative group transition-colors duration-500 ${getScrollIndicatorBorder()}`}>
-            <div className={`w-1 h-3 rounded-full mt-2 animate-bounce transition-colors duration-500 ${getScrollIndicatorColor()}`} />
+          <div className={`w-6 h-10 sm:w-8 sm:h-12 border-2 rounded-full flex justify-center relative group transition-colors duration-500 ${getScrollIndicatorBorder()}`}>
+            <div className={`w-1 h-2 sm:h-3 rounded-full mt-2 animate-bounce transition-colors duration-500 ${getScrollIndicatorColor()}`} />
             <div className={`absolute inset-0 rounded-full blur-md transition-all duration-500 ${getScrollIndicatorGlow()}`} />
           </div>
         </div>
