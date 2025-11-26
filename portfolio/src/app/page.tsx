@@ -23,7 +23,28 @@ export default function Home() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setActive(sectionId);
   };
-
+  useEffect(() => {
+    // Update the theme-color meta tag based on dark mode
+    const themeColor = dark ? "#020617" : "#f8fafc"; // Match your gradient start colors
+    const metaThemeColor = document.querySelector("meta[name='theme-color']");
+  
+    if (metaThemeColor) {
+      metaThemeColor.setAttribute("content", themeColor);
+    } else {
+      // If it doesn't exist (e.g. in app directory without layout), create it
+      const meta = document.createElement("meta");
+      meta.name = "theme-color";
+      meta.content = themeColor;
+      document.head.appendChild(meta);
+    }
+  
+    // Optional: Also support Apple's mobile web status bar
+    const appleMeta = document.querySelector("meta[name='apple-mobile-web-app-status-bar-style']");
+    if (appleMeta) {
+      appleMeta.setAttribute("content", dark ? "black-translucent" : "default");
+    }
+  }, [dark]);
+  
   useGSAP(
     () => {
       if (typeof window !== "undefined" && window.gsap) {
