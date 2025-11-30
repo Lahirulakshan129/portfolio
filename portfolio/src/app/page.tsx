@@ -4,11 +4,10 @@ import { ParticlesBackground } from "@/components/particles/ParticleBackground";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/Hero";
 import About from "@/components/About/About";
-import  Projects  from "@/components/projects/Projects";
-import  Skills  from "@/components/Skills/Skills";
-import  Contact  from "@/components/Contact/Contact";
+import Projects from "@/components/projects/Projects";
+import Skills from "@/components/Skills/Skills";
+import Contact from "@/components/Contact/Contact";
 import { Footer } from "@/components/layout/Footer";
-import { Section } from "@/components/layout/Section";
 import { useGSAP } from "@/lib/gsap";
 
 export type SectionId = "home" | "about" | "projects" | "skills" | "contact";
@@ -23,6 +22,7 @@ export default function Home() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setActive(sectionId);
   };
+
   useEffect(() => {
     // Update the theme-color meta tag based on dark mode
     const themeColor = dark ? "#020617" : "#f8fafc"; // Match your gradient start colors
@@ -65,7 +65,8 @@ export default function Home() {
           boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
         });
 
-        gsap.utils.toArray(".section").forEach((el: unknown) => {
+        // Update selector to target direct section components
+        gsap.utils.toArray("section[id]").forEach((el: unknown) => {
           const element = el as HTMLElement;
           gsap.from(element, {
             scrollTrigger: {
@@ -141,25 +142,26 @@ export default function Home() {
       />
 
       <main>
-        <section id="home" className="hero">
+        {/* Direct component rendering without wrapper sections */}
+        <div id="home" className="hero">
           <Hero scrollTo={scrollTo} darkMode={dark} />
-        </section>
+        </div>
 
-        <Section id="about" className="section bg-white/5 backdrop-blur-sm">
+        <div id="about">
           <About darkMode={dark} />
-        </Section>
+        </div>
 
-        <Section id="projects" className="section bg-white/5 backdrop-blur-sm">
+        <div id="projects">
           <Projects darkMode={dark} />
-        </Section>
+        </div>
 
-        <Section id="skills" className="section bg-white/5 backdrop-blur-sm">
+        <div id="skills">
           <Skills darkMode={dark} />
-        </Section>
+        </div>
 
-        <Section id="contact" className="section bg-white/5 backdrop-blur-sm">
+        <div id="contact">
           <Contact darkMode={dark} />
-        </Section>
+        </div>
       </main>
 
       <Footer scrollTo={scrollTo} darkMode={dark} />

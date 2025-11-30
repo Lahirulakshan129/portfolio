@@ -89,18 +89,16 @@ const TechnologyBadge: React.FC<TechnologyBadgeProps> = ({ technology, index, da
 };
 
 // Project Card Component
+// Project Card Component (CORRECTED VERSION)
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = false }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     if (cardRef.current) {
-      gsap.fromTo(cardRef.current,
-        {
-          opacity: 0,
-          y: 60,
-          scale: 0.95
-        },
+      gsap.fromTo(
+        cardRef.current,
+        { opacity: 0, y: 60, scale: 0.95 },
         {
           opacity: 1,
           y: 0,
@@ -111,198 +109,204 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index, darkMode = fa
           scrollTrigger: {
             trigger: cardRef.current,
             start: "top 85%",
-            toggleActions: "play none none reverse"
-          }
+            toggleActions: "play none none reverse",
+          },
         }
       );
     }
 
-    // Image hover animation
+    // Image hover scale effect
     if (imageRef.current) {
-      const hoverAnimation = gsap.to(imageRef.current, {
+      const hover = gsap.to(imageRef.current, {
         scale: 1.05,
-        duration: 0.3,
+        duration: 0.4,
+        ease: "power2.out",
         paused: true,
-        ease: "power2.out"
       });
 
-      imageRef.current.addEventListener('mouseenter', () => hoverAnimation.play());
-      imageRef.current.addEventListener('mouseleave', () => hoverAnimation.reverse());
+      imageRef.current.addEventListener("mouseenter", () => hover.play());
+      imageRef.current.addEventListener("mouseleave", () => hover.reverse());
     }
   }, { scope: cardRef });
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-500';
-      case 'in-progress': return 'bg-yellow-500';
-      case 'planned': return 'bg-blue-500';
-      default: return 'bg-gray-500';
+      case "completed":
+        return "bg-green-500";
+      case "in-progress":
+        return "bg-yellow-500";
+      case "planned":
+        return "bg-blue-500";
+      default:
+        return "bg-gray-500";
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'completed': return 'Completed';
-      case 'in-progress': return 'In Progress';
-      case 'planned': return 'Coming Soon';
-      default: return status;
+      case "completed":
+        return "Completed";
+      case "in-progress":
+        return "In Progress";
+      case "planned":
+        return "Coming Soon";
+      default:
+        return status;
     }
   };
 
   const getCategoryIcon = (category: string) => {
     switch (category.toLowerCase()) {
-      case 'web': return <Globe size={10} />;
-      case 'mobile': return <Smartphone size={10} />;
-      case 'fullstack': return <Database size={10} />;
-      case 'cloud': return <Cloud size={10} />;
-      default: return <Globe size={10} />;
+      case "web":
+        return <Globe size={10} />;
+      case "mobile":
+      case "mobileapp":
+        return <Smartphone size={10} />;
+      case "fullstack":
+        return <Database size={10} />;
+      case "cloud":
+      case "iot":
+        return <Cloud size={10} />;
+      default:
+        return <Globe size={10} />;
     }
   };
 
   return (
     <div
       ref={cardRef}
-      className={`group relative rounded-lg shadow-md border overflow-hidden transition-all duration-500 hover:shadow-lg transform-gpu ${
-        darkMode 
-          ? 'bg-gray-800 border-gray-700 hover:border-blue-600' 
-          : 'bg-white border-gray-200 hover:border-blue-300'
-      } ${project.featured ? 'ring-1 ring-yellow-400' : ''}`}
+      className={`group relative rounded-lg shadow-md border overflow-hidden transition-all duration-500 hover:shadow-xl transform-gpu ${
+        darkMode
+          ? "bg-gray-800 border-gray-700 hover:border-blue-600"
+          : "bg-white border-gray-200 hover:border-blue-300"
+      } ${project.featured ? "ring-2 ring-yellow-400 ring-offset-2 ring-offset-gray-900/50" : ""}`}
     >
       {/* Featured Badge */}
       {project.featured && (
-        <div className="absolute top-2 left-2 z-10">
-          <div className="flex items-center gap-1 bg-yellow-400 text-yellow-900 px-1.5 py-0.5 rounded-full text-xs font-bold">
-            <Star size={8} fill="currentColor" />
+        <div className="absolute top-3 left-3 z-20">
+          <div className="flex items-center gap-1 bg-yellow-400 text-yellow-900 px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+            <Star size={10} fill="currentColor" />
             Featured
           </div>
         </div>
       )}
 
       {/* Status Badge */}
-      <div className="absolute top-2 right-2 z-10">
-        <div className={`flex items-center gap-1 ${getStatusColor(project.status)} text-white px-1.5 py-0.5 rounded-full text-xs`}>
-          <div className="w-1 h-1 rounded-full bg-white"></div>
+      <div className="absolute top-3 right-3 z-20">
+        <div className={`flex items-center gap-1.5 ${getStatusColor(project.status)} text-white px-2 py-1 rounded-full text-xs font-medium`}>
+          <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></div>
           {getStatusText(project.status)}
         </div>
       </div>
 
-      {/* Project Image */}
-      <div 
-        ref={imageRef}
-        className="relative h-32 overflow-hidden bg-gradient-to-br from-blue-500 to-purple-600"
-      >
-        <div className={`absolute inset-0 flex items-center justify-center ${
-          darkMode ? 'bg-gray-900' : 'bg-gray-100'
-        } bg-opacity-50`}>
-          <div className="text-center">
+      {/* Project Image Container */}
+      <div ref={imageRef} className="relative h-48 overflow-hidden bg-gray-200">
+        {/* Actual Image */}
+        <img
+          src={project.image || "/api/placeholder/600/400"}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          loading="lazy"
+        />
+
+        {/* Dark overlay with title & icon */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-center justify-center">
+          <div className="text-center text-white">
             {getCategoryIcon(project.category)}
-            <h3 className={`text-sm font-bold mt-1 ${
-              darkMode ? 'text-white' : 'text-gray-900'
-            }`}>
-              {project.title}
-            </h3>
+            <h3 className="text-lg font-bold mt-2">{project.title}</h3>
           </div>
         </div>
-        
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-          <div className="opacity-0 group-hover:opacity-100 transform translate-y-3 group-hover:translate-y-0 transition-all duration-300 flex gap-1.5">
+
+        {/* Hover Action Buttons (Live / GitHub) */}
+        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+          <div className="flex gap-3 scale-90 group-hover:scale-100 transition-transform duration-300">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
-                className="p-1 bg-white text-gray-900 rounded-full shadow-md hover:scale-110 transform transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="p-3 bg-white text-gray-900 rounded-full shadow-xl hover:scale-110 transition-all duration-200"
               >
-                <ExternalLink size={12} />
+                <ExternalLink size={18} />
               </a>
             )}
             {project.githubUrl && (
               <a
                 href={project.githubUrl}
-                className="p-1 bg-gray-900 text-white rounded-full shadow-md hover:scale-110 transform transition-all duration-200"
                 target="_blank"
                 rel="noopener noreferrer"
+                className="p-3 bg-gray-900 text-white rounded-full shadow-xl hover:scale-110 transition-all duration-200 border border-white/20"
               >
-                <Github size={12} />
+                <Github size={18} />
               </a>
             )}
           </div>
         </div>
       </div>
 
-      {/* Project Content */}
-      <div className="p-3">
+      {/* Card Content */}
+      <div className="p-5">
         {/* Category */}
-        <div className="flex items-center gap-1 mb-1.5">
+        <div className="flex items-center gap-2 mb-2">
           {getCategoryIcon(project.category)}
-          <span className={`text-xs font-medium ${
-            darkMode ? 'text-gray-400' : 'text-gray-600'
-          }`}>
-            {project.category}
+          <span className={`text-sm font-medium ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+            {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
           </span>
         </div>
 
         {/* Title */}
-        <h3 className={`text-base font-bold mb-1.5 transition-colors group-hover:text-blue-600 ${
-          darkMode ? 'text-white group-hover:text-blue-400' : 'text-gray-900'
-        }`}>
+        <h3
+          className={`text-xl font-bold mb-2 transition-colors ${
+            darkMode ? "text-white group-hover:text-blue-400" : "text-gray-900 group-hover:text-blue-600"
+          }`}
+        >
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className={`text-xs mb-2.5 leading-relaxed ${
-          darkMode ? 'text-gray-300' : 'text-gray-700'
-        }`}>
+        <p className={`text-sm leading-relaxed mb-4 ${darkMode ? "text-gray-300" : "text-gray-600"}`}>
           {project.description}
         </p>
 
         {/* Technologies */}
-        <div className="flex flex-wrap gap-1 mb-2.5">
-          {project.technologies.slice(0, 3).map((tech, techIndex) => (
-            <TechnologyBadge
-              key={tech}
-              technology={tech}
-              index={techIndex}
-              darkMode={darkMode}
-            />
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.technologies.slice(0, 4).map((tech, i) => (
+            <TechnologyBadge key={tech} technology={tech} index={i} darkMode={darkMode} />
           ))}
-          {project.technologies.length > 3 && (
-            <span className={`text-xs px-1.5 py-0.5 ${
-              darkMode ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              +{project.technologies.length - 3}
+          {project.technologies.length > 4 && (
+            <span className={`text-xs px-2 py-1 rounded-full ${darkMode ? "text-gray-400" : "text-gray-600"}`}>
+              +{project.technologies.length - 4}
             </span>
           )}
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-1.5 pt-2 border-t border-gray-200 dark:border-gray-700">
+        {/* Action Buttons at Bottom */}
+        <div className="flex gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
           {project.liveUrl && (
             <a
               href={project.liveUrl}
-              className="flex items-center gap-1 px-2 py-1 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-all duration-300 text-xs font-medium group/btn flex-1 justify-center"
               target="_blank"
               rel="noopener noreferrer"
+              className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-300 text-sm font-medium"
             >
-              <Globe size={10} />
-              Live
-              <ArrowRight size={8} className="group-hover/btn:translate-x-0.5 transition-transform" />
+              <Globe size={14} />
+              View Live
+              <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
             </a>
           )}
           {project.githubUrl && (
             <a
               href={project.githubUrl}
-              className={`flex items-center gap-1 px-2 py-1 rounded-md border transition-all duration-300 text-xs font-medium ${
-                darkMode 
-                  ? 'border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white' 
-                  : 'border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-              } flex-1 justify-center`}
               target="_blank"
               rel="noopener noreferrer"
+              className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border text-sm font-medium transition-all duration-300 ${
+                darkMode
+                  ? "border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white"
+                  : "border-gray-300 text-gray-700 hover:bg-gray-100"
+              }`}
             >
-              <Github size={10} />
-              Code
+              <Github size={14} />
+              Source Code
             </a>
           )}
         </div>
@@ -331,7 +335,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
       longDescription: "A comprehensive safri platform built with explore realtime wildlife sightings.",
       technologies: ["React (Vite)", "Spring Boot", "PostgreSQL", "Firebase", "GSAP", "Tailwind CSS"],
       category: "FullStack",
-      image: "/wildtrails.jpg",
+      image: "/images/wildtrails.jpg",
       liveUrl: "",
       githubUrl: "https://github.com/lahirulakshan129/Wild-Trails",
       featured: true,
@@ -344,7 +348,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
       longDescription: "multi-store businesses with real-time tracking, order & supplier management..",
       technologies: ["PHP", "MySQL", "Bootstrap 5", "JavaScript", "HTML5", "CSS3"],
       category: "FullStack",
-      image: "/api/placeholder/400/200",
+      image: "/images/inventoryPro.png",
       liveUrl: "",
       githubUrl: "https://github.com/lahirulakshan129/inventory-pro",
       featured: true,
@@ -357,7 +361,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
       longDescription: " That fetches details, posters, and official trailers using the TMDB API..",
       technologies: ["Kotlin", "Android Studio", "TMDB API"],
       category: "MobileApp",
-      image: "/api/placeholder/400/200",
+      image: "/images/flixfinder.png",
       liveUrl: "",
       githubUrl: "https://github.com/Lahirulakshan129/Flix-finder   ",
       featured: false,
@@ -370,7 +374,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
       longDescription: "React Native fitness app with progress tracking.",
       technologies: ["Java", "JavaFX"],
       category: "DesktopApp",
-      image: "/api/placeholder/400/200",
+      image: "/images/ciperApp.png",
       liveUrl: "",
       githubUrl: "https://github.com/Lahirulakshan129/Vegenere-cipher-Softwere-java",
       featured: true,
@@ -383,7 +387,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
       longDescription: " ",
       technologies: ["Python", "Flask", "BeautifulSoup", "Magnet Links", "HTML5", "CSS3", "JavaScript"],
       category: "Web",
-      image: "/api/placeholder/400/200",
+      image: "/images/moviehub.png",
       githubUrl: "https://github.com/Lahirulakshan129/MovieHub",
       featured: false,
       status: "completed"
@@ -395,7 +399,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
       longDescription: "ML platform for content generation.",
       technologies: ["OpenCV", "MQTT", "React", "ESP32"],
       category: "IoT",
-      image: "/api/placeholder/400/200",
+      image: "/images/iotmat.png",
       featured: false,
       status: "planned"
     }
@@ -471,15 +475,15 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
   return (
     <div 
       ref={containerRef}
-      className={`min-h-screen transition-colors duration-500 py-12 md:py-20 ${
+      className={`min-h-screen transition-colors duration-500 py-8 md:py-12 ${
         darkMode 
           ? 'bg-gradient-to-br from-gray-900 to-purple-900' 
           : 'bg-gradient-to-br from-gray-50 to-purple-50'
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 max-w-5xl lg:max-w-6xl">
+      <div className="w-full px-3 sm:px-4 max-w-7xl mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-10 md:mb-12">
+        <div className="text-center mb-8 md:mb-10 pt-16 md:pt-20"> {/* Added pt-16 md:pt-20 for top padding */}
           <div className="inline-flex items-center gap-1.5 mb-2 md:mb-3">
             <div className={`p-1 rounded-md ${
               darkMode ? 'bg-purple-900 text-purple-400' : 'bg-purple-100 text-purple-600'
@@ -502,7 +506,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
           
           <p 
             ref={subtitleRef}
-            className={`text-sm sm:text-base max-w-2xl mx-auto leading-relaxed ${
+            className={`text-sm sm:text-base max-w-2xl mx-auto leading-relaxed px-2 ${
               darkMode ? 'text-gray-300' : 'text-gray-700'
             }`}
           >
@@ -513,7 +517,7 @@ const Projects: React.FC<ProjectsProps> = ({ darkMode = false }) => {
         {/* Projects Grid */}
         <div 
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-5 px-1"
         >
           {projects.map((project, index) => (
             <ProjectCard
